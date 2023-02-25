@@ -1,28 +1,31 @@
-body{
-    background-color:black;
+body {
+  background-color: black;
 }
 
-p, h2, h3{
-    color: lawngreen;
-    margin: .1em;
-    font-family: "Lucida Console", "Courier New", monospace;
+p,
+h2,
+h3 {
+  color: lawngreen;
+  margin: 0.1em;
+  font-family: "Lucida Console", "Courier New", monospace;
 }
 
 input {
-    width:300px;
-    background-color:black;
-    border:black;
-    caret-color:lawngreen;
-    /* add border for myself for now*/
-    /*border-color:white;*/
+  width: 300px;
+  background-color: black;
+  border: black;
+  caret-color: lawngreen;
+  /* add border for myself for now*/
+  /*border-color:white;*/
 }
 
-input:focus{
-    outline: none;
+input:focus {
+  outline: none;
 }
 
-input, textarea{
-    color: lawngreen;
-    font-family: "Lucida Console", "Courier New", monospace;
-    font-size: 16px;
+input,
+textarea {
+  color: lawngreen;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 16px;
 }
