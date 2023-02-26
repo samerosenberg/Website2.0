@@ -12,10 +12,10 @@ var currentFolder: string = "";
 //  2. Create a component function for the file
 //  3. Add the filename as a case in fileToComp that will call the component
 var folders: { [folder: string]: string[] } = {
-    about: ["Me.txt", "Hobbies.txt", "Contact.txt"],
+    about: ["Me.txt", "Contact.txt"],
     education: ["Pitt.txt"],
     experience: ["Epic.py", "TechBlue.txt"],
-    portfolio: ["Github.lnk", "MachineLearning.txt"],
+    portfolio: ["Github.lnk", "MachineLearning.txt", "DraftGenie.txt"],
     socials: ["linkedin.lnk"],
 };
 var shortcuts: { [shortuct: string]: string } = {
@@ -208,7 +208,7 @@ function HelpText(): JSX.Element {
                 <strong>
                     start {"<"}filename{">"}
                 </strong>
-                : starts a program Hint: use with ".lnk" files
+                : starts a program (Hint: use with ".lnk" files)
             </p>
             <p>
                 <strong>clear</strong>: clear the terminals output
@@ -223,10 +223,6 @@ function HelpText(): JSX.Element {
     );
 }
 
-function Hobbies(): JSX.Element {
-    return <p></p>;
-}
-
 /**
  * Component to print out contact information inside Contact.txt
  *
@@ -235,7 +231,17 @@ function Hobbies(): JSX.Element {
 function Contact(): JSX.Element {
     return (
         <div>
-            <p>Feel free to reach out to me at serosenberg99@gmail.com</p>
+            <p>
+                Feel free to reach out to me at{" "}
+                <a href="mailto: serosenberg99@gmail.com">
+                    serosenberg99@gmail.com
+                </a>
+            </p>
+            <br></br>
+            <p>
+                Check out the socials folder to stay connected with me on social
+                media!
+            </p>
         </div>
     );
 }
@@ -291,12 +297,12 @@ function Epic(): JSX.Element {
             <br></br>
             <p>
                 I am currently a software developer at Epic on the Ambulatory
-                Notes team
+                Notes team.
             </p>
             <p>
                 I create software to enhance the efficiency of clinician
                 documentation so they can focus on what really matters, the
-                patient
+                patient.
             </p>
             <br></br>
         </div>
@@ -304,7 +310,27 @@ function Epic(): JSX.Element {
 }
 
 function TechBlue(): JSX.Element {
-    return <p></p>;
+    return (
+        <div>
+            <h2>
+                <strong>TechBlue Inc.</strong>
+            </h2>
+            <h3>Application Developer Intern</h3>
+            <p>January 2020 - December 2020</p>
+            <br></br>
+            <p>
+                For my first internship in college I worked as an Application
+                Developer intern at a small consulting firm based in Pittsburgh,
+                PA.
+            </p>
+            <p>
+                Most notably I was the lead intern on a project to build a
+                schedule optimizer for healthcare workers in response to
+                Covid-19.
+            </p>
+            <br></br>
+        </div>
+    );
 }
 
 /**
@@ -319,13 +345,42 @@ function MachineLearning(): JSX.Element {
             <br></br>
             <p>
                 Machine learning has always been an interesting topic to me, so
-                I followed some tutorials online to crate some pretty cool
+                I followed some tutorials online to create some pretty cool
                 projects
             </p>
             <p>
                 Check out the list of projects{" "}
                 <a
                     href="https://github.com/serose99/ML-Projects"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    here
+                </a>
+            </p>
+        </div>
+    );
+}
+
+/**
+ * Component to hold contents of DraftGenie.txt
+ *
+ * @return {DraftGenie}  {JSX.Element}
+ */
+function DraftGenie(): JSX.Element {
+    return (
+        <div>
+            <h2>Draft Genie</h2>
+            <br></br>
+            <p>
+                At SteelHacks 2019 my friend and I built a machine learning
+                model to accurately predict where a player would be drafted in
+                that years upcoming draft.
+            </p>
+            <p>
+                Check out the repository{" "}
+                <a
+                    href="https://github.com/serose99/DraftGenie"
                     target="_blank"
                     rel="noreferrer"
                 >
@@ -378,6 +433,9 @@ function readLine(event: any): void {
             break;
         case "start":
             start(args);
+            break;
+        case "python":
+            python(args);
             break;
         case "":
             return;
@@ -469,6 +527,18 @@ function fileToComp(file: string) {
         case "MachineLearning.txt":
             addOutput(<MachineLearning />);
             break;
+        case "Contact.txt":
+            addOutput(<Contact />);
+            break;
+        case "TechBlue.txt":
+            addOutput(<TechBlue />);
+            break;
+        case "DraftGenie.txt":
+            addOutput(<DraftGenie />);
+            break;
+        default:
+            addOutput();
+            break;
     }
 }
 
@@ -478,10 +548,28 @@ function fileToComp(file: string) {
  * @param {string} shortcut - shortcut file to
  */
 function start(shortcut: string) {
-    if (Object.keys(shortcuts).includes(shortcut)) {
+    if (
+        folders[currentFolder]?.includes(shortcut) &&
+        Object.keys(shortcuts)?.includes(shortcut)
+    ) {
         window.open(shortcuts[shortcut], "_blank", "noreferrer");
+        addOutput();
+    } else {
+        const whatFile = "cat: " + shortcut + ": No such file or directory";
+        addOutput(<TextLine text={whatFile} />);
     }
-    addOutput();
+}
+
+function python(file: string) {
+    const ext = file.split(".")[1];
+    if (ext === "py") {
+        const prize =
+            "Congrats! You found secret cookie #2! Find all 3 for a special prize!";
+        addOutput(<TextLine text={prize} />);
+    } else {
+        const suggest = "Hmm, this command typically works for .py files...";
+        addOutput(<TextLine text={suggest} />);
+    }
 }
 
 /**
