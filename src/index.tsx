@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import { Helmet } from "react-helmet";
 import "./index.css";
-import { AboutMe } from "./about";
+import { AboutMe, Contact } from "./about";
+import { Epic, TechBlue } from "./experience";
 import Typing from "react-typing-animation";
 
 var lines: JSX.Element[] = [];
@@ -224,29 +225,6 @@ function HelpText(): JSX.Element {
 }
 
 /**
- * Component to print out contact information inside Contact.txt
- *
- * @return {Contact}  {JSX.Element}
- */
-function Contact(): JSX.Element {
-    return (
-        <div>
-            <p>
-                Feel free to reach out to me at{" "}
-                <a href="mailto: serosenberg99@gmail.com">
-                    serosenberg99@gmail.com
-                </a>
-            </p>
-            <br></br>
-            <p>
-                Check out the socials folder to stay connected with me on social
-                media!
-            </p>
-        </div>
-    );
-}
-
-/**
  * Component to print out Pitt text inside Pitt.txt
  *
  * @return {Pitt}  {JSX.Element}
@@ -275,58 +253,6 @@ function Pitt(): JSX.Element {
             <br></br>
             <p>
                 <strong>Hail to Pitt!</strong>
-            </p>
-            <br></br>
-        </div>
-    );
-}
-
-/**
- * Component to print out Epic information inside Epic.py
- *
- * @return {Epic}  {JSX.Element}
- */
-function Epic(): JSX.Element {
-    return (
-        <div>
-            <h2>
-                <strong>Epic Systems</strong>
-            </h2>
-            <h3>Software Developer</h3>
-            <p>June 2021 - Present</p>
-            <br></br>
-            <p>
-                I am currently a software developer at Epic on the Ambulatory
-                Notes team.
-            </p>
-            <p>
-                I create software to enhance the efficiency of clinician
-                documentation so they can focus on what really matters, the
-                patient.
-            </p>
-            <br></br>
-        </div>
-    );
-}
-
-function TechBlue(): JSX.Element {
-    return (
-        <div>
-            <h2>
-                <strong>TechBlue Inc.</strong>
-            </h2>
-            <h3>Application Developer Intern</h3>
-            <p>January 2020 - December 2020</p>
-            <br></br>
-            <p>
-                For my first internship in college I worked as an Application
-                Developer intern at a small consulting firm based in Pittsburgh,
-                PA.
-            </p>
-            <p>
-                Most notably I was the lead intern on a project to build a
-                schedule optimizer for healthcare workers in response to
-                Covid-19.
             </p>
             <br></br>
         </div>
