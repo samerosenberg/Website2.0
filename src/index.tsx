@@ -76,9 +76,12 @@ function ConsoleLine(): JSX.Element {
  * @return {ConsoleInput}  {JSX.Element}
  */
 function ConsoleInput(): JSX.Element {
-    const handleEnterPressed = (event: any) => {
+    const onkeydown = (event: any) => {
         if (event.key === "Enter") {
             readLine(event);
+        } else if (event.key === "Tab") {
+            event.preventDefault();
+            autoComplete(event);
         }
     };
 
@@ -86,7 +89,7 @@ function ConsoleInput(): JSX.Element {
         <input
             type="text"
             autoFocus
-            onKeyDown={handleEnterPressed}
+            onKeyDown={onkeydown}
             key={count++}
             id="consoleInput"
         ></input>
@@ -370,6 +373,24 @@ function readLine(event: any): void {
             break;
     }
     event.target.disabled = true;
+}
+
+function autoComplete(event: any): void {
+    const command = event.target.value.split(" ")[0];
+    const args = event.target.value.split(" ")[1];
+    var autocomplete;
+    if (currentFolder === "") {
+        autocomplete = Object.keys(folders).filter((folder) =>
+            folder.toLowerCase().startsWith(args)
+        );
+    } else {
+        autocomplete = folders[currentFolder].filter((file) =>
+            file.toLowerCase().startsWith(args)
+        );
+    }
+    if (autocomplete.length > 0) {
+        event.target.value = command + " " + autocomplete;
+    }
 }
 
 /**
