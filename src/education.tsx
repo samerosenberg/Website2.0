@@ -1,6 +1,7 @@
 /**
  * Component to print out Pitt text inside Pitt.txt
  *
+ * @export
  * @return {Pitt}  {JSX.Element}
  */
 export function Pitt(): JSX.Element {
