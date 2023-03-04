@@ -15,8 +15,6 @@ input {
   background-color: black;
   border: black;
   caret-color: lawngreen;
-  /* add border for myself for now*/
-  /*border-color:white;*/
 }
 
 input:focus {
@@ -28,4 +26,10 @@ textarea {
   color: lawngreen;
   font-family: "Lucida Console", "Courier New", monospace;
   font-size: 16px;
+}
+
+.fileExplorer{
+  border-style: solid;
+  height: 400px;
+  width:750px;
 }

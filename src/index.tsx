@@ -7,6 +7,7 @@ import { Epic, TechBlue } from "./experience";
 import { Pitt } from "./education";
 import { MachineLearning, DraftGenie } from "./portfolio";
 import Typing from "react-typing-animation";
+import Draggable from "react-draggable";
 
 var lines: JSX.Element[] = [];
 var currentFolder: string = "";
@@ -21,7 +22,7 @@ var folders: { [folder: string]: string[] } = {
     portfolio: ["Github.lnk", "MachineLearning.txt", "DraftGenie.txt"],
     socials: ["linkedin.lnk"],
 };
-var shortcuts: { [shortuct: string]: string } = {
+var shortcuts: { [shortcut: string]: string } = {
     "Github.lnk": "https://github.com/serose99",
     "linkedin.lnk": "https://www.linkedin.com/in/serose99/",
 };
@@ -121,10 +122,17 @@ function HeaderText(): JSX.Element {
                 <p>{helpText}</p>
                 <br></br>
             </Typing>
+            {/*<button onClick={openGUI}>Click to open GUI</button>*/}
         </>
     );
 }
-
+function openGUI() {
+    root.render(
+        <Draggable>
+            <FileExplorer></FileExplorer>
+        </Draggable>
+    );
+}
 /**
  * Component to print out list of "folders" when user enters "ls"
  *
@@ -208,7 +216,7 @@ function HelpText(): JSX.Element {
                 <strong>
                     cat {"<"}filename{">"}
                 </strong>
-                : writes out the contents of the specificed file
+                : writes out the contents of the specified file
             </p>
             <p>
                 <strong>
@@ -229,11 +237,15 @@ function HelpText(): JSX.Element {
     );
 }
 
+function FileExplorer(): JSX.Element {
+    return <div className="fileExplorer">content</div>;
+}
+
 //#endregion
 
 //#region Helper Functions
 /**
- * Adds a line(component) to the cosole
+ * Adds a line(component) to the console
  *
  * @param {JSX.Element} [line] - component to add
  */
@@ -246,7 +258,7 @@ function addOutput(line?: JSX.Element) {
 }
 
 /**
- * Interpret commands inputed
+ * Interpret commands inputted
  *
  * @param {*} event - contains properties of html event
  */
@@ -399,7 +411,7 @@ function fileToComp(file: string) {
 }
 
 /**
- * Launchs shortcut links in new windows
+ * Launches shortcut links in new windows
  *
  * @param {string} shortcut - shortcut file to
  */
