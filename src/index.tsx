@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SyntheticEvent, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { Helmet } from "react-helmet";
 import "./index.css";
@@ -16,11 +16,11 @@ var currentFolder: string = "";
 //  2. Create a component function for the file
 //  3. Add the filename as a case in fileToComp that will call the component
 var folders: { [folder: string]: string[] } = {
-    about: ["Me.txt", "Contact.txt"],
-    education: ["Pitt.txt"],
-    experience: ["Epic.py", "TechBlue.txt"],
-    portfolio: ["Github.lnk", "MachineLearning.txt", "DraftGenie.txt"],
-    socials: ["linkedin.lnk"],
+    About: ["me.txt", "contact.txt"],
+    Education: ["Pitt.txt"],
+    Experience: ["Epic.py", "TechBlue.txt"],
+    Portfolio: ["github.lnk", "machineLearning.txt", "DraftGenie.txt"],
+    Socials: ["linkedin.lnk"],
 };
 var shortcuts: { [shortcut: string]: string } = {
     "Github.lnk": "https://github.com/serose99",
@@ -231,29 +231,67 @@ function HelpText(): JSX.Element {
     );
 }
 
-function FileExplorer(): JSX.Element {
-    return (
-        <Draggable handle=".handle">
-            <div className="fileExplorer">
-                <div className="handle">
-                    <div className="backArrow">{"<"}</div>
-                    <div className="forwardArrow">{">"}</div>
-                    <div className="homeFolder">Home</div>
-                    <div className="folder">{currentFolder}</div>
-                    <div
-                        className="closeButton"
-                        onClick={closeFileExplorer}
-                    ></div>
+class FileExplorer extends React.Component<IProps, IState> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            curFolder: "",
+            displayedFiles: Object.keys(folders),
+            displayType: "folder", //TODO: figure out how to use types?interfaces?
+        };
+
+        this.openFolder = this.openFolder.bind(this);
+        this.returnHome = this.returnHome.bind(this);
+    }
+
+    openFolder(event: any) {
+        if (Object.keys(folders).includes(event.target.id)) {
+            this.setState({
+                curFolder: event.target.id,
+                displayedFiles: folders[event.target.id],
+            });
+        }
+    }
+
+    returnHome(event: any) {
+        this.setState({ curFolder: "", displayedFiles: Object.keys(folders) });
+    }
+
+    render() {
+        return (
+            <Draggable handle=".handle">
+                <div className="fileExplorer">
+                    <div className="handle">
+                        <div className="backArrow">{"<"}</div>
+                        <div className="forwardArrow">{">"}</div>
+                        <div className="homeFolder" onClick={this.returnHome}>
+                            Home
+                        </div>
+                        <div className="openFolder">{this.state.curFolder}</div>
+                        <div
+                            className="closeButton"
+                            onClick={closeFileExplorer}
+                        ></div>
+                    </div>
+                    <div className="folderList"></div>
+                    <div className="display">
+                        {this.state.displayedFiles.map((value) => {
+                            return (
+                                <div
+                                    className={value.split(".")[1] ?? "folder"}
+                                    id={value}
+                                    key={value}
+                                    onDoubleClick={this.openFolder}
+                                >
+                                    {value}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
-                <div className="folderList"></div>
-                <div className="display">
-                    {Object.keys(folders).map((value) => {
-                        return <div className="folder">{value}</div>;
-                    })}
-                </div>
-            </div>
-        </Draggable>
-    );
+            </Draggable>
+        );
+    }
 }
 
 function openGUI() {
@@ -484,3 +522,11 @@ function commandNotUnderstood(command: string) {
 interface textProps {
     text: string;
 }
+
+interface IState {
+    curFolder: string;
+    displayedFiles: string[];
+    displayType: string;
+}
+
+interface IProps {}
