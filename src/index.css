@@ -1,5 +1,6 @@
 body {
   background-color: black;
+  overflow:hidden;
 }
 
 p,
@@ -29,7 +30,110 @@ textarea {
 }
 
 .fileExplorer{
+  color:lawngreen;
   border-style: solid;
+  border-radius:10px;
   height: 400px;
   width:750px;
+  position:relative;
+}
+
+.folderList{
+  color:lawngreen;
+  border-style: solid;
+  border-top:0px;
+  border-bottom: 0px;
+  border-left: 0px;
+  top:10%;
+  height:90%;
+  width:15%;
+  position: absolute;
+  z-index: -1;
+}
+
+.display{
+  position:absolute;
+  top:10%;
+  height:90%;
+  width:85%;
+  right:0;
+  display:flex;
+}
+
+.folder{
+  height:15%;
+  width:15%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.folder:before{
+  content:'\1F5C1';
+  font-size: 64px;
+}
+
+.handle{
+  background-color: black;
+  display:flex;
+  align-items:center;
+  color:lawngreen;
+  border-style: solid;
+  border-right:0px;
+  border-left: 0px;
+  border-top:0px;
+  border-radius:10px 10px 0px 0px;
+  height:10%;
+  width:100%;
+  position: absolute;
+  user-select: auto;
+}
+
+.backArrow, .forwardArrow{
+  color:lawngreen;
+  height: 100%;
+  width:5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0%;
+}
+
+.homeFolder{
+  color:lawngreen;
+  margin-left: 20px;
+  height: 70%;
+  width:7%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-width: thin;
+  padding-right: 5px;
+  padding-left:5px;
+}
+
+.homeFolder:before{
+  content:'\2302';
+  margin-right:2px;
+}
+
+.closeButton{
+  position:absolute;
+  height:15px;
+  width:15px;
+  right: 2%;
+  border-style: solid;
+  border-radius:7.5px;
+  border-width: thin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.closeButton:before{
+  content: '\2715';
+  font-size: 10px;
+}
+.closeButton:hover{
+  background-color: greenyellow;
 }

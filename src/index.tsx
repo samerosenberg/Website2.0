@@ -36,6 +36,7 @@ if (!rootEl) {
 }
 
 const root = ReactDOM.createRoot(rootEl);
+//TODO: add header text back
 addOutput(<HeaderText />);
 const firstInp = document.getElementById("consoleInput");
 firstInp?.focus();
@@ -122,17 +123,10 @@ function HeaderText(): JSX.Element {
                 <p>{helpText}</p>
                 <br></br>
             </Typing>
-            {/*<button onClick={openGUI}>Click to open GUI</button>*/}
         </>
     );
 }
-function openGUI() {
-    root.render(
-        <Draggable>
-            <FileExplorer></FileExplorer>
-        </Draggable>
-    );
-}
+
 /**
  * Component to print out list of "folders" when user enters "ls"
  *
@@ -238,7 +232,36 @@ function HelpText(): JSX.Element {
 }
 
 function FileExplorer(): JSX.Element {
-    return <div className="fileExplorer">content</div>;
+    return (
+        <Draggable handle=".handle">
+            <div className="fileExplorer">
+                <div className="handle">
+                    <div className="backArrow">{"<"}</div>
+                    <div className="forwardArrow">{">"}</div>
+                    <div className="homeFolder">Home</div>
+                    <div className="folder">{currentFolder}</div>
+                    <div
+                        className="closeButton"
+                        onClick={closeFileExplorer}
+                    ></div>
+                </div>
+                <div className="folderList"></div>
+                <div className="display">
+                    {Object.keys(folders).map((value) => {
+                        return <div className="folder">{value}</div>;
+                    })}
+                </div>
+            </div>
+        </Draggable>
+    );
+}
+
+function openGUI() {
+    root.render(<FileExplorer />);
+}
+
+function closeFileExplorer() {
+    clearConsole();
 }
 
 //#endregion
@@ -253,6 +276,9 @@ function addOutput(line?: JSX.Element) {
     if (line) {
         lines.push(line);
     }
+    //TODO: Remove this when its working
+    //lines.push(<button onClick={openGUI}>Click to open GUI</button>);
+
     lines.push(<ConsoleLine />);
     root.render(<Console />);
 }
