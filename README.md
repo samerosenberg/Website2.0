@@ -1,6 +1,6 @@
 # My Website 2.0
 
-Welcome to my protfolio website's repository! This is my newest attempt at creating a website portfolio to highlight who I am!
+Welcome to my portfolio website's repository! This is my newest attempt at creating a website portfolio to highlight who I am!
 
 Check out the website at [samrosenberg.io](https://samrosenberg.io/)!
 
